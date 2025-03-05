@@ -20,7 +20,7 @@
 
 .allDetailLogin input:focus {
     outline: none;
-    border: 2px solid #007bff;
+    border: 5px solid #007bff;
     transform: scale(1.03);
 }
 
