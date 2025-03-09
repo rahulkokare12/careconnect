@@ -77,7 +77,7 @@ const Login = () => {
           </ul>
         </nav>
 
-        <form onSubmit={handleLogin} autoComplete="on" style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <form onSubmit={handleLogin} autoComplete="on" style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "20px" }}>
           <motion.input
             type="text"
             id="email"

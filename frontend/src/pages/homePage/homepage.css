@@ -10,6 +10,7 @@ body {
     color: #333;
     padding: 20px;
     animation: fadeIn 1.5s ease;
+    height: 100vh;
 }
 
 h1 {

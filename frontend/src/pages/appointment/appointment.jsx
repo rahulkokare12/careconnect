@@ -75,310 +75,100 @@ const Appointment = () => {
         fontFamily: "Arial, sans-serif",
         maxWidth: "800px",
         margin: "auto",
+        background: "linear-gradient(135deg,rgb(213, 151, 142),rgb(73, 184, 165))",
+        borderRadius: "20px",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+        animation: "fadeIn 0.5s ease-in-out",
       }}
     >
-      <h1>Book an Appointment</h1>
+      <h1 style={{ textAlign: "center", color: "#007bff" }}>Book an Appointment 🩺</h1>
 
-      <header>
+      <header style={{ marginBottom: "20px" }}>
         <nav className="navBar">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/appointmentList">Appointments</Link>
-            </li>
-            <li
-              onClick={handleLogout}
-              style={{
-                display: "block",
-                padding: "2px 30px",
-                fontFamily: "Arial, sans-serif",
-                fontWeight: "bold",
-                color: "white",
-                cursor: "pointer",
-                border: "none",
-                transition: "transform 0.2s, box-shadow 0.2s",
-                borderRadius: "20px",
-                boxShadow: "0 2px 5px rgba(249, 249, 249, 0.1)",
-              }}
-              onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
-              onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
-            >
-              Logout
-            </li>
+          <ul style={{ display: "flex", justifyContent: "space-around", padding: 0 }}>
+            <li><Link to="/">🏠 Home</Link></li>
+            <li><Link to="/appointmentList">📅 Appointments</Link></li>
+            <li><Link to="/logout">Logout</Link></li>
           </ul>
         </nav>
       </header>
-      <br></br>
 
-      <div style={{ marginBottom: "15px", position: "relative" }}>
-        <label>Patient ID: </label>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <input
-            type="text"
-            disabled
-            value={patientId}
-            placeholder="Your Patient ID"
-            style={{
-              padding: "10px",
-              width: "100%",
-              marginBottom: "10px",
-              borderRadius: "10px",
-              border: "2px solid #007bff",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
-          />
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(patientId);
-              alert("Patient ID copied to clipboard!");
-            }}
-            style={{
-              marginLeft: "5px",
-              right: "10px",
-              padding: "4px",
-              top: "20%",
-              backgroundColor: "#28a745",
-              color: "white",
-              border: "none",
-              borderRadius: "100px",
-              cursor: "pointer",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              transition: "transform 0.2s, box-shadow 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "scale(1.05)";
-              e.target.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.15)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "scale(1)";
-              e.target.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            }}
-          >
-            Copy
-          </button>
-        </div>
-      </div>
-
-      <div style={{ marginBottom: "20px", position: "relative" }}>
-        <label style={{ fontSize: "1.2em", fontWeight: "bold" }}>
-          Select Doctor:{" "}
-        </label>
-        <select
-          value={selectedDoctor}
-          onChange={(e) => setSelectedDoctor(e.target.value)}
-          style={{
-            padding: "12px",
-            width: "100%",
-            borderRadius: "10px",
-            border: "2px solidrgb(19, 35, 106)",
-            background: "linear-gradient(135deg, #82c3c5,rgb(163, 179, 234))",
-            color: "#fff",
-            fontWeight: "bold",
-            cursor: "pointer",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            transition: "all 0.3s ease",
-            outline: "none",
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.2)";
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-          }}
-        >
-          <option value="">-- Choose a Doctor --</option>
-          {doctors.map((doctor) => (
-            <option
-              key={doctor._id}
-              value={doctor._id}
-              style={{
-                padding: "10px",
-                backgroundColor: "#fff",
-                color: "#001F40",
-                fontWeight: "bold",
-                transition: "background 0.3s ease",
-              }}
-            >
-              {doctor.fullname} - {doctor.specialty} 🩺
-            </option>
-          ))}
-        </select>
-
-        <div
-          style={{
-            position: "absolute",
-            top: "62%",
-            right: "20px",
-            transform: "translateY(-50%)",
-            animation: "spin 2s linear infinite",
-          }}
-        >
-          🩺
-        </div>
-      </div>
-
-      <div style={{ position: "relative", marginBottom: "20px" }}>
-        <label
-          style={{ display: "block", marginBottom: "10px", fontWeight: "bold" }}
-        >
-          📅 Select Date:{" "}
-        </label>
+      <div style={{ marginBottom: "20px" }}>
+        <label style={{ fontWeight: "bold" }}>👤 Patient ID:</label>
         <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+          type="text"
+          disabled
+          value={patientId}
           style={{
             padding: "10px",
             width: "100%",
             borderRadius: "10px",
             border: "2px solid #007bff",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            background: "linear-gradient(135deg, #f3f3f3, #ffffff)",
-            cursor: "pointer",
-            transition: "transform 0.2s ease, box-shadow 0.2s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = "scale(1.05)";
-            e.target.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.15)";
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = "scale(1)";
-            e.target.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+            background: "#fff",
           }}
         />
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            right: "10px",
-            transform: "translateY(-50%) rotate(0deg)",
-            animation: "spin 10s linear infinite",
-          }}
-        ></div>
-      </div>
-      <div
-        style={{
-          marginBottom: "20px",
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-        }}
-      >
-
-        
-        <div style={{ marginBottom: "20px", position: "relative" }}>
-          <label style={{ fontSize: "1.2em", fontWeight: "bold" }}>
-            Select Time:{" "}
-          </label>
-          <div style={{ position: "relative", marginTop: "10px" }}>
-            <input
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              style={{
-                padding: "10px",
-                width: "600x%",
-                borderRadius: "10px",            
-                border: "2px solid #007bff",
-                boxShadow: "0 2px 10px rgba(43, 48, 100, 0.14)",
-                fontSize: "1em",
-                transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = "#ff6b6b";
-                e.target.style.boxShadow = "0 0 15px rgba(65, 60, 118, 0.5)";
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = "#007bff";
-                e.target.style.boxShadow = "0 2px 10px rgba(0, 123, 255, 0.2)";
-              }}
-            />
-            <div
-              
-              onMouseEnter={(e) =>
-                (e.target.style.background = "rgba(0, 123, 255, 0.3)")
-              }
-              onMouseLeave={(e) =>
-                (e.target.style.background = "rgba(0, 123, 255, 0.1)")
-              }
-            ></div>
-          </div>
-        </div>
-
-        
-
-        <div style={{ position: "relative", display: "inline-block" }}>
-          <select
-            value={ampm}
-            onChange={(e) => setAmPm(e.target.value)}
-            style={{
-              padding: "8px",
-              borderRadius: "100px",
-              border: "2px solid #007bff",
-              backgroundColor: "#fff",
-              color: "#007bff",
-              fontWeight: "bold",
-              cursor: "pointer",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              transition: "transform 0.2s, box-shadow 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = "scale(1.05)";
-              e.target.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.15)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "scale(1)";
-              e.target.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            }}
-          >
-            <option value="AM">🔆 AM</option>
-            <option value="PM">🌛 PM</option>
-          </select>
-          <div
-            style={{
-              position: "absolute",
-              top: "500%",
-              right: "-25px",
-              transform: "translateY(-50%)",
-              animation: "bounce 1.5s infinite",
-            }}
-          ></div>
-        </div>
       </div>
 
+      <div style={{ marginBottom: "20px" }}>
+        <label style={{ fontWeight: "bold" }}>🩺 Select Doctor:</label>
+        <select
+          value={selectedDoctor}
+          onChange={(e) => setSelectedDoctor(e.target.value)}
+          style={{ padding: "10px", width: "100%", borderRadius: "10px" }}
+        >
+          <option value="">-- Choose a Doctor --</option>
+          {doctors.map((doctor) => (
+            <option key={doctor._id} value={doctor._id}>
+              {doctor.fullname} - {doctor.specialty}
+            </option>
+          ))}
+        </select>
+      </div>
 
+      <div style={{ marginBottom: "20px" }}>
+        <label style={{ fontWeight: "bold" }}>📅 Select Date:</label>
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          style={{ padding: "10px", width: "100%", borderRadius: "10px" }}
+        />
+      </div>
+
+      <div style={{ marginBottom: "20px" }}>
+        <label style={{ fontWeight: "bold" }}>⏰ Select Time:</label>
+        <input
+          type="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          style={{ padding: "10px", borderRadius: "10px", width: "500px", marginRight: "30px" }}
+        />
+        <select
+          value={ampm}
+          onChange={(e) => setAmPm(e.target.value)}
+          style={{ padding: "10px", borderRadius: "10px", width: "100px" }}
+        >
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
 
       <button
         onClick={handleBooking}
         style={{
           padding: "10px 20px",
-          backgroundColor: "#007bff",
+          backgroundColor: "#28a745",
           color: "white",
-          border: "none",
-          cursor: "pointer",
           borderRadius: "10px",
+          border: "none",
           fontWeight: "bold",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-          transition: "transform 0.2s, box-shadow 0.2s",
-          animation: "pulse 2s infinite",
+          cursor: "pointer",
         }}
-        onMouseEnter={(e) => {
-          e.target.style.transform = "scale(1.05)";
-          e.target.style.boxShadow = "0 6px 12px rgba(0, 0, 0, 0.3)";
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.transform = "scale(1)";
-          e.target.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
-        }}
-        onMouseDown={(e) => (e.target.style.transform = "scale(0.95)")}
-        onMouseUp={(e) => (e.target.style.transform = "scale(1.05)")}
       >
-        Book Appointment
+        ✅ Book Appointment
       </button>
     </div>
   );
 };
 
-export default Appointment;  
+export default Appointment;

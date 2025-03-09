@@ -99,6 +99,7 @@ def create_appointment():
         "patient_id": patient_id,
         "date": date,
         "time": time,
+        "prescription": "",
         "status": "confirmed"
     }
     db.appointments.insert_one(appointment)
@@ -116,15 +117,14 @@ def get_appointments():
         query['doctor_id'] = doctor_id
 
     appointments = list(db.appointments.find(query))
-
     print(appointments)
-
     # Enrich appointments with patient and doctor names
     enriched_appointments = []
     for appointment in appointments:
         appointment['_id'] = str(appointment['_id'])
         appointment['patient_id'] = str(appointment['patient_id'])
         appointment['doctor_id'] = str(appointment['doctor_id'])
+        appointment['prescription'] = str(appointment['prescription'])
 
         # Fetch patient and doctor names
         patient = db.users.find_one({"_id": ObjectId(appointment['patient_id'])}, {"fullname": 1})
@@ -138,6 +138,27 @@ def get_appointments():
     print(enriched_appointments)
 
     return jsonify(enriched_appointments)
+
+@app.post("/prescriptions")
+def savePrescriptions():
+    data = request.json
+    appointment_id = data.get('appointmentId')
+    prescription_text = data.get('prescriptionText')
+    appointment = db.appointments.find_one({"_id": ObjectId(appointment_id)})
+    if not appointment:
+        raise HTTPException(status_code=404, detail="Appointment not found")
+
+    update_result = db.appointments.update_one(
+            {"_id": ObjectId(appointment_id)},
+            {"$set": {"prescription": prescription_text}}
+        )
+
+    if update_result.modified_count == 1:
+        return {"message": "Prescription added successfully"}
+    else:
+        raise HTTPException(status_code=400, detail="Failed to update prescription")
+
+    return {"message": "Prescription added successfully"}
 
 # Run the app
 if __name__ == '__main__':
