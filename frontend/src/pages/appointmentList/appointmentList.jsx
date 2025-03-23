@@ -137,10 +137,14 @@ const AppointmentList = () => {
     if (patientId || doctorId) fetchAppointments();
   }, [patientId, doctorId]);
 
-  const handleCancel = async (id) => {
+  const handleCancel = async (appointmentId) => {
     if (window.confirm("Are you sure you want to cancel this appointment?")) {
-      await axios.delete(`http://localhost:5000/appointments/${id}`);
-      fetchAppointments();
+      try {
+        await axios.delete(`http://localhost:5000/delete-appointment/${appointmentId}`);
+        fetchAppointments();
+      } catch (error) {
+        console.error("Error canceling appointment:", error);
+      }
     }
   };
 
@@ -191,7 +195,7 @@ const AppointmentList = () => {
                 <p><strong>Time:</strong> {appointment.time}</p>
                 <p>
                   <strong>Meet Link:</strong>
-                  <a href={appointment.link} target="_blank" rel="noopener noreferrer" style={{ marginLeft: "10px", color: "#007bff" }}>
+                  <a href="https://meet.google.com/bhm-wazc-snn" target="_blank" rel="noopener noreferrer" style={{ marginLeft: "10px", color: "#007bff" }}>
                     Join Call
                   </a>
                 </p>

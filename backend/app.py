@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 from flask_cors import CORS
-from bson.objectid import ObjectId
+from bson import ObjectId
 
 app = Flask(__name__)
 CORS(app) 
@@ -105,6 +105,21 @@ def create_appointment():
     db.appointments.insert_one(appointment)
     return jsonify({"message": "Appointment booked successfully"}), 201
 
+@app.route('/delete-appointment/<id>', methods=['DELETE'])
+def delete_appointment(id):
+    if not id:
+        return jsonify({"error": "Appointment ID is required"}), 400
+
+    try:
+        result = db.appointments.delete_one({"_id": ObjectId(id)})
+
+        if result.deleted_count == 0:
+            return jsonify({"error": "No appointment found"}), 404
+
+        return jsonify({"message": "Appointment deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500  # Handles any unexpected errors
+
 @app.route('/appointmentList', methods=['GET'])
 def get_appointments():
     patient_id = request.args.get('patientId')
@@ -117,7 +132,7 @@ def get_appointments():
         query['doctor_id'] = doctor_id
 
     appointments = list(db.appointments.find(query))
-    print(appointments)
+
     # Enrich appointments with patient and doctor names
     enriched_appointments = []
     for appointment in appointments:
@@ -135,7 +150,6 @@ def get_appointments():
 
         enriched_appointments.append(appointment)
 
-    print(enriched_appointments)
 
     return jsonify(enriched_appointments)
 
