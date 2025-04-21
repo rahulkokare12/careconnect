@@ -9,7 +9,7 @@ const Doctor = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/doctors", {
+      const response = await axios.get("https://b1rjr3dw-5000.inc1.devtunnels.ms/doctors", {
         params: { specialty },
       });
       setDoctors(response.data);

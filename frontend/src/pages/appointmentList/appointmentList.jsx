@@ -9,7 +9,7 @@ const PrescriptionModal = ({ isOpen, onClose, appointmentId }) => {
     
     try {
       console.log(prescription)
-      const response = await axios.post("http://localhost:5000/prescriptions", {
+      const response = await axios.post("https://b1rjr3dw-5000.inc1.devtunnels.ms/prescriptions", {
         appointmentId,
         prescriptionText:prescription,
       });
@@ -118,7 +118,7 @@ const AppointmentList = () => {
       if (patientId) queryParams.patientId = patientId;
       if (doctorId) queryParams.doctorId = doctorId;
 
-      const response = await axios.get("http://localhost:5000/appointmentList", { params: queryParams });
+      const response = await axios.get("https://b1rjr3dw-5000.inc1.devtunnels.ms/appointmentList", { params: queryParams });
       const updatedAppointments = response.data.map((appointment) => {
         const meetData = appointment.meetLink
           ? { link: appointment.meetLink, code: appointment.meetCode }
@@ -140,7 +140,7 @@ const AppointmentList = () => {
   const handleCancel = async (appointmentId) => {
     if (window.confirm("Are you sure you want to cancel this appointment?")) {
       try {
-        await axios.delete(`http://localhost:5000/delete-appointment/${appointmentId}`);
+        await axios.delete(`https://b1rjr3dw-5000.inc1.devtunnels.ms/delete-appointment/${appointmentId}`);
         fetchAppointments();
       } catch (error) {
         console.error("Error canceling appointment:", error);
