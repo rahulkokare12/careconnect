@@ -21,7 +21,7 @@ const Appointment = () => {
 
   useEffect(() => {
     axios
-      .get("https://b1rjr3dw-5000.inc1.devtunnels.ms/doctors")
+      .get("http://localhost:5000/doctors")
       .then((response) => {
         setDoctors(response.data);
       })
@@ -40,7 +40,7 @@ const Appointment = () => {
     const formattedTime = `${time} ${ampm}`;
 
     axios
-      .post("https://b1rjr3dw-5000.inc1.devtunnels.ms/appointments", {
+      .post("http://localhost:5000/appointments", {
         doctor_id: selectedDoctor,
         patient_id: patientId,
         date: date,

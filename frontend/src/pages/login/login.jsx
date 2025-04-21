@@ -12,7 +12,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://b1rjr3dw-5000.inc1.devtunnels.ms/login", {
+      const response = await axios.post("http://localhost:5000/login", {
         email: email,
         password: password,
       });
